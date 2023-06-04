@@ -59,7 +59,7 @@ cd ..
 # Download dataset
 python3 util.py -dd True --dataset cifar10
 python3 util.py -dd True --dataset cifar100
-python3 util.py -dd True --dataset imagenet
+python3 util.py -dd True --dataset imagenet_1k
 ```
 
 
