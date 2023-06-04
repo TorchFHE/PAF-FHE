@@ -16,7 +16,7 @@ Existing PAFs suffer from either prohibitive latency overhead or low accuracy. P
 
 ## Results
 PAF-FHE spots optimal 14-degree PAF with 69.4% accuracy (the same accuracy as plaintext pretrained ResNet-18 under ImageNet-1k dataset) and saves 72% latency of 27-degree Minimax PAF.
-| --- | --- | --- | --- | --- | --- | --- |
+
 |  |  | $f_1^2 \circ g_1^2$ | alpha=7 | $f_2\circ g_3$ | $f_2\circ g_2$ | $f_1\circ g_2$ |
 | --- | --- | --- | --- | --- | --- | --- |
 | Replace ReLU Only | direct replacement | 64.70% | 54.70% | 51.30% | 32.00% | 29.90% |
@@ -33,7 +33,6 @@ PAF-FHE spots optimal 14-degree PAF with 69.4% accuracy (the same accuracy as pl
 | Replace All Non-linear | baseline + CT + PR + AT | 69.40% | 67.00% | 65.30% | 57.30% | 6.50% |
 |  | Accuracy Improvement over baseline | 1.07 | 1.22 | 1.27 | 1.79 | 0.22 |
 |  | Accuracy Improvement over baseline | 1.08 | 1.01 | 1.02 | 0.98 | 0.12 |
-| --- | --- | --- | --- | --- | --- | --- |
 
 
 # Ready to run?
