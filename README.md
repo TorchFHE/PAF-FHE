@@ -7,14 +7,36 @@
     Year = {2023}, 
     URL = {https://doi.org/10.21203/rs.3.rs-2910088/v1}, }
 ```
-## Secure Fully Homomorphic Encryption (FHE) based Machine Learning Inference Converts Non-polynomial Operators (ReLU/MaxPooling) into Polynomial Approximation Functions (PAF)
+## Motivation
+Secure Fully Homomorphic Encryption (FHE) based Machine Learning Inference Converts Non-polynomial Operators (ReLU/MaxPooling) into Polynomial Approximation Functions (PAF)
 ![](image/secure_ML_inference.png)
 
-## Existing PAFs suffer from either prohibitive latency overhead or low accuracy. PAF-FHE proposes four training techniques to enable exploration on the entire PAF degree space and spot high-accuracy low-latency PAF.
+Existing PAFs suffer from either prohibitive latency overhead or low accuracy. PAF-FHE proposes four training techniques to enable exploration on the entire PAF degree space and spot high-accuracy low-latency PAF.
 ![](image/RelatedWork.png)
 
-# Ready to run?
+## Results
+PAF-FHE spots optimal 14-degree PAF with 69.4% accuracy (the same accuracy as plaintext pretrained ResNet-18 under ImageNet-1k dataset) and saves 72% latency of 27-degree Minimax PAF.
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  | $f_1^2 \circ g_1^2$ | alpha=7 | $f_2\circ g_3$ | $f_2\circ g_2$ | $f_1\circ g_2$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| Replace ReLU Only | direct replacement | 64.70% | 54.70% | 51.30% | 32.00% | 29.90% |
+|  | baseline | 64.30% | 66.40% | 64.20% | 58.30% | 53.10% |
+|  | baseline + CT | 68.60% | 67.70% | 67.00% | 66.50% | 61.70% |
+|  | baseline + AT | 65.20% | 68.30% | 63.70% | 60.50% | 52.00% |
+|  | baseline + PR | 65.60% | 68.40% | 64.60% | 60.20% | 52.60% |
+|  | PR | 63.40% | 68.10% | 63.30% | 57.60% | 49.50% |
+|  | baseline + PR + CT | 68.20% | 67.00% | 67.60% | 65.90% | 60.80% |
+|  | baseline +PR + AT | 64.90% | 67.40% | 64.60% | 56.50% | 47.10% |
+|  | baseline + CT + PR + AT | 69.00% | 68.10% | 61.40% | 66.50% | 63.10% |
+|  | Accuracy Improvement over direct replacement | 1.07 | 1.24 | 1.20 | 2.08 | 2.11 |
+|  | Accuracy Improvement over baseline | 1.07 | 1.03 | 0.96 | 1.14 | 1.19 |
+| Replace All Non-linear | baseline + CT + PR + AT | 69.40% | 67.00% | 65.30% | 57.30% | 6.50% |
+|  | Accuracy Improvement over baseline | 1.07 | 1.22 | 1.27 | 1.79 | 0.22 |
+|  | Accuracy Improvement over baseline | 1.08 | 1.01 | 1.02 | 0.98 | 0.12 |
+| --- | --- | --- | --- | --- | --- | --- |
 
+
+# Ready to run?
 ```
 #Activate Conda
 # Create a python3.8 enviroment
@@ -104,3 +126,8 @@ python3 ./PA_AT.py --model vgg19_bn --dataset imagenet_1k -wd ../vgg19_bn_imagen
 # Statistic Scale.
 python3 ./SS.py --model vgg19_bn --dataset imagenet_1k -wd ../vgg19_imagenet1k/ -st 2f12g1
 ```
+
+# Maintainers
+
+- Jingtian Dang (dangjingtian@cmu.edu)
+- Jianming Tong (jianming.tong@gatech.edu)
