@@ -58,8 +58,15 @@ if __name__ == "__main__":
     parser.add_argument("-st","--sign_type", type=str, default="a7", choices=["a7", "2f12g1", "f1g2", "f2g2", "f2g3"])
     args = parser.parse_args()
     print(args)
-    train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = global_config["Global"]["dataset_dirctory"])
-    valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = global_config["Global"]["dataset_dirctory"])
+
+
+    if(args.dataset == "cifar10" or args.dataset == "cifar100"):
+        valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = global_config["Global"]["dataset_dirctory"])
+        train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = global_config["Global"]["dataset_dirctory"])
+    elif(args.dataset == "imagenet_1k"):
+        valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = os.path.join(global_config["Global"]["dataset_dirctory"], args.dataset) )
+        train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = os.path.join(global_config["Global"]["dataset_dirctory"], args.dataset) )
+   
     model = get_pretrained_model(model_name=args.model, dataset=args.dataset)
     
     SS_replace(model = model, valid_data_loader=valid_data_loader, train_data_loader=train_data_loader ,sign_type = args.sign_type, input_data_dirctory = args.working_directory)

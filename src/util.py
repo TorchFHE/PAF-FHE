@@ -475,14 +475,14 @@ if __name__ == "__main__":
             url = 'https://hanlab.mit.edu/files/OnceForAll/ofa_cvpr_tutorial/imagenet_1k.zip'
             target_dir = url.split('/')[-1]
             model_dir = os.path.expanduser(global_config["Global"]["dataset_dirctory"])
-            if not os.path.exists(model_dir):
-                 os.makedirs(model_dir)
             dataset_dir = model_dir
             model_dir = os.path.join(model_dir, args.dataset)
+            if not os.path.exists(model_dir):
+                 os.makedirs(model_dir)
             cached_file = model_dir
             os.system(f"wget {url} --no-check-certificate")
             os.system(f"mv imagenet_1k.zip {model_dir}")
-            os.system(f"unzip {model_dir} -d {dataset_dir}")
+            os.system(f"unzip {model_dir}/imagenet_1k.zip -d {dataset_dir}")
         else:
              raise Exception("dataset error")
 

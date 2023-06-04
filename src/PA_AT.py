@@ -660,9 +660,17 @@ if __name__ == "__main__":
     model = get_pretrained_model(model_name=args.model, dataset=args.dataset)
     lr_c = args.learning_rate
     lr_w = args.learning_rate / 10
-    valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = global_config["Global"]["dataset_dirctory"])
-    train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = global_config["Global"]["dataset_dirctory"])
+    
+    valid_data_loader = None
+    train_data_loader = None 
 
+    if(args.dataset == "cifar10" or args.dataset == "cifar100"):
+        valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = global_config["Global"]["dataset_dirctory"])
+        train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = global_config["Global"]["dataset_dirctory"])
+    elif(args.dataset == "imagenet_1k"):
+        valid_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "valid", data_dir = os.path.join(global_config["Global"]["dataset_dirctory"], args.dataset) )
+        train_data_loader = get_data_loader(dataset = args.dataset, dataset_type = "train", data_dir = os.path.join(global_config["Global"]["dataset_dirctory"], args.dataset) )
+   
     train_network(model=model, sign_type = args.sign_type, start_layer_name = start_layer_name,
                   valid_data_loader = valid_data_loader, train_data_loader = train_data_loader,
                   max_layer_counter = args.max_counter, lr_c = lr_c, lr_w = lr_w, input_data_dirctory = args.working_directory)
